@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Gün 2</title>
+</head>
+<body>
+<script>
+var students = 
+ [ {'name': "izzet", 'gender':"M", 'k1':"JS", 'k2':"PHP", 'age':34 }, 
+   {'name': "oya", 'gender':"F", 'k1':"JS", 'k2':"C", 'age':25 }, 
+   {'name': "ali", 'gender':"M", 'k1':"JS", 'k2':"C", 'age':22 }, 
+   {'name': "zeynep", 'gender':"F", 'k1':"PHP", 'k2':"JS", 'age':30 }, 
+   {'name': "veli", 'gender':"M", 'k1':"C", 'k2':"JS", 'age':22 }
+ ];
+var females = students.filter(function(student) {
+  return student.gender == "F";
+});
+
+var CListe = students.filter(function(student) {
+  return student.k1 == "C" || student.k2 == "C";
+})
+
+var ageSum = 0;
+CListe.forEach(function(student) {
+  console.log(student.name);
+  ageSum += student.age;
+})
+console.log("Average=%s", ageSum / CListe.length);  
+
+var ageTotal = students.reduce(function(prevValue, currentValue) {
+  return prevValue + currentValue.age;
+}, 0);
+
+var result = [11,20,6,8,3,1,9,14,12].reduce(function(prev, cur) {
+  var arr1 = prev[0];
+  var arr2 = prev[1];
+  if (cur%2 == 0) arr1.push(cur);	 
+  else arr2.push(cur);
+  return [arr1, arr2];
+}, [ [],[] ])
+
+// functions returning other functions
+
+function f(y) {
+  var g = function(x) {
+    return Math.pow(x,y);
+  }
+  return g;  
+}
+
+var square = f(2);
+var cube = f(3);
+var power6 = f(6);
+
+var str = "Hello";
+function func1() {
+  var str = "Merhaba";
+  for (var i=0; i<4; i++) {
+     var a = 5;
+  }
+  console.log(a);
+  console.log(str);
+}
+func1();
+console.log(str);
+
+function counter() {
+  var cnt = 0;
+  return function() {
+    cnt++;
+	return cnt;
+  }
+}
+
+counter1 = counter();
+
+function counter_not_closure() {
+  var cnt = 0;
+  var f = function() {
+    cnt++;
+	return cnt;
+  }
+  var r = f();
+  return r
+}
+
+/*
+var cat1 = { 'name': 'tekir', 'age':12, 
+             'talk': function() {
+			    console.log("Miyav. My name is %s", this.name);
+		     },
+			 'color': "yellow" };
+
+var cat2 = { 'name': 'sarman', 'age':12, 
+             'talk': function() {
+			    console.log("Miyav. My name is %s", this.name);
+		     },
+			 'color': "yellow" };
+*/
+function talk() {
+   console.log("Miyav. My name is %s. I am a %s cat", 
+               this.name, this.color);
+}
+
+var cat1 = { 'name': 'tekir', 'age':12, 
+             'talk': talk,
+			 'color': "yellow" };
+
+var cat2 = { 'name': 'sarman', 'age':12, 
+             'talk': talk,
+			 'color': "yellow" };
+
+function makeCat(name, age, color) {
+  var newCat = {}
+  newCat.name = name;
+  newCat.age = age;
+  newCat.color = color;
+  newCat.talk = talk;
+  return newCat;
+}
+
+var cat3 = makeCat("azman", 5, "gray");
+
+function makeCat2(name, age, color) {
+  this.name = name;
+  this.age = age;
+  this.color = color;
+  this.talk = talk;
+  return this;
+}
+
+var cat4 = makeCat("azman2", 8, "gray");
+
+/*
+function Cat(name, age, color) {
+  this.name = name;
+  this.age = age;
+  this.color = color;
+  this.talk = function() {
+   console.log("Miyav. My name is %s. I am a %s cat", 
+               this.name, this.color);
+  }
+}
+			 
+var cat5 = Cat("azman2", 8, "gray"); // undefined
+var cat6 = new Cat("azman2", 8, "gray"); 
+*/
+function Cat(name, age, color) {
+  this.name = name;
+  this.age = age;
+  this.color = color;
+}
+
+Cat.prototype.talk = function() {
+   console.log("Miyav. My name is %s. I am a %s cat", 
+               this.name, this.color);
+   if (this.age > this.maxAge) {
+     console.log("I must be dead.")
+   }   
+}
+
+Cat.prototype.maxAge = 10;
+
+var cat6 = new Cat("azman2", 8, "gray");  			 
+var cat7 = new Cat("azman3", 13, "gray");  			 
+
+cat7.talk = function() {
+  console.log("I am hungry.");
+  Cat.prototype.talk.apply(this) // this cat7 olduğundan talk çağrılırken onun içindeki this cat7 olacak
+}
+
+Cat.prototype.talk.apply({name:"şerafettin", color:"çizgili"});
+
+var a = [10,20,30,40,50,60,70,80];
+Array.prototype.besinci = function() { return this[4]; }
+a.besinci();  // 50
+if (Array.prototype.last == undefined) {
+   Array.prototype.last = function() { return this[this.length-1]; }
+}
+a.last();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

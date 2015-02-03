@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Gün 2 - DOM</title>
+  <style>
+  .big {
+    font-size: 140%;
+  }
+  </style>
+  <script src="jquery-1.11.2.js" ></script>
+  <script>
+$(document).ready(function() {
+  p = $("#p2");
+  p.css("border", "1px solid red");
+  p.css("background-color", "yellow");
+  console.log(p);
+  $("#p1")
+	.css({ 'background-color': "yellow",
+           'border': "1px solid red"  	
+	     })
+    // .css("border", "1px solid red")
+	// .css("background-color", "yellow")
+    .attr("align", "right")	
+	.html("New content")
+	.addClass("big")
+	.append("<span>read more</span>")
+   $("#post ul.a li")
+     .css({ 'background-color': "pink",
+           'border': "1px solid blue"  	
+	     })
+     .css('color', function(i, oldValue) {
+	   // console.log("%s:%s", i,this.innerHTML);
+	   console.log("%s:%s", i,$(this).html());
+	   var metin = $(this).html()
+	   if (metin.length > 3) { return "green"; }
+	   else { return "white"; }
+     })	 
+	/* 
+	$("button").click(function() {
+	// $("button").click(function() {
+	  var curButton = $(this);
+	  var id = curButton.attr("id");
+	  console.log(this.innerHTML);
+	  if (id.substr(0,3) == "but") {
+	    var myList = $("ul.b")
+	    var newItem = $("<li>new item</li>")
+	    myList.append(newItem);
+	  }	
+    })
+    */	
+	$("button").each(function() {
+	  var curButton = $(this);
+	  var id = curButton.attr("id");
+	  if (id != undefined && id.substr(0,3) == "but") {
+	    curButton.click(function() { 
+	      var myList = $("ul.b")
+	      var newItem = $("<li>new item</li>")
+		  newItem.hover(liEnter,liLeave);
+	      myList.append(newItem);
+		}) 
+	  }	
+    })
+	var liEnter = function() {
+	  var liElem = $(this);
+	  liElem.css("background-color", "black")
+	        .css("color", "red")
+			.animate({ "font-size" : "2em",
+			           "margin-right": "90px" }, 1000)
+    }
+	var liLeave = 	  function() {
+	  var liElem = $(this);
+	  liElem.css("background-color", "white")
+	        .css("color", "black")
+			.animate({ "font-size" : "1em",
+			           "margin-right": "0px" })
+    }
+
+    $("ul.b li").hover(liEnter,liLeave)
+	/* $("ul.b li").click(function() {
+	  alert("clicked");
+	}) */
+	$("ul.b").on("click", "li", function() {
+	  alert("clicked");
+	})
+	$("ul.a").on("click mouseenter", "li", function() {
+	  alert("mouse entered or clicked");
+	})
+		
+})
+  </script>
+</head>
+<body>
+<button id="but1">Try me</button>
+<button id="but2">Try me too</button>
+<button>Another button</button>
+<p id="p1">Paragraf 1</p>
+<div id="post">
+	<ul class="a">
+	<li>bir</li>
+	<li>iki</li>
+	<li>uc</li>
+	<li>dort</li>
+	</ul>
+	<ul class="b">
+	<li>bir</li><li>iki</li><li>uc</li><li>dort</li>
+	</ul>
+</div>
+<p id="p2">Paragraf 2</p>
+<ul>
+<li>bir</li>
+<li>iki</li>
+<li>uc</li>
+<li>dort</li>
+</ul>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

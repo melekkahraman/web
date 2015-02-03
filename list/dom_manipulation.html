@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Gün 2 - DOM</title>
+</head>
+<body>
+<button onclick="alert('tiklandim'); ekle()">Try me</button>
+<p>Paragraf 1</p>
+<ul id="list">
+<li>bir</li>
+<li>iki</li>
+<li>uc</li>
+<li>dort</li>
+</ul>
+<p id="p2">Paragraf 2</p>
+<script>
+document.title = "vdvdfvfd"
+document.body.bgColor = "yellow"
+// document.location = "http://google.com"
+// history.back();
+var p = document.getElementById("p2");
+p.innerHTML = "New content";
+p.style.backgroundColor = "lightblue";
+myList = document.getElementById("list")
+myList.childNodes[3].innerHTML = "two"
+var newItem = document.createElement("li")
+newItem.innerHTML = "bes"
+myList.appendChild(newItem)
+
+function ekle() {
+	var myList = document.getElementById("list")
+	myList.childNodes[3].innerHTML = "two"
+	var newItem = document.createElement("li")
+	newItem.innerHTML = "bes"
+	myList.appendChild(newItem)
+}
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
